@@ -29,7 +29,7 @@ def get_requires_list(filename):
 
 
 setup(
-    name='user-auth',
+    name='django-user-auth',
     version=version,
     description="user auth application for django",
     long_description=read('README.rst'),
