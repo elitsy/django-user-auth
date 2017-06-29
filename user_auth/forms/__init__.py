@@ -1,6 +1,5 @@
 from .mixins import PasswordFormMixin, ChangePasswordMixin
 from django import forms
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -29,17 +28,15 @@ class UserCreationForm(ChangePasswordMixin):
 
     class Meta:
         model = get_user_model()
-        # fields = [get_user_model().USERNAME_FIELD, ] + \
-        #             get_user_model().REQUIRED_FIELDS
-        fields = get_user_model().REQUIRED_FIELDS
+        fields = [get_user_model().USERNAME_FIELD, ] + \
+                    get_user_model().REQUIRED_FIELDS
 
     def clean_email(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
         email = self.cleaned_data["email"].strip()
-        username = u'{0}__{1}'.format(email, settings.SITE_ID)
         try:
-            get_user_model().objects.using('default').get(username__iexact=username)
+            get_user_model().objects.using('default').get(email__iexact=email)
         except ObjectDoesNotExist:
             return email
         raise forms.ValidationError(self.error_messages['duplicate_username'])

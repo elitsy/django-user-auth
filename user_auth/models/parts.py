@@ -84,8 +84,8 @@ class WithGroups(models.Model):
     groups = models.ManyToManyField(Group, verbose_name=_('groups'),
         related_name='%(class)ss', blank=True,
         help_text=_('The groups this user belongs to. A user will '
-                                'get all permissions granted to each of '
-                                'his/her group.'))
+                    'get all permissions granted to each of '
+                    'his/her group.'))
 
     class Meta:
         abstract = True
@@ -108,8 +108,8 @@ class WithGroups(models.Model):
 
 
 class WithUsername(models.Model):
-    username = models.CharField(_('username'), max_length=254, unique=True,
-        help_text=_('Required. 254 characters or fewer. Letters, numbers and '
+    username = models.CharField(_('username'), max_length=30, unique=True,
+        help_text=_('Required. 30 characters or fewer. Letters, numbers and '
                     '@/./+/-/_ characters'),
         validators=[
             validators.RegexValidator(re.compile('^[\w.@+-]+$'),

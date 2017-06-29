@@ -1,5 +1,5 @@
 from .managers import EmailUserManager
-from .parts import DjangoAdmin, WithUsername
+from .parts import DjangoAdmin
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 __all__ = ['AbstractUser']
 
 
-class AbstractUser(DjangoAdmin, AbstractBaseUser, PermissionsMixin, WithUsername):
+class AbstractUser(DjangoAdmin, AbstractBaseUser, PermissionsMixin):
     """
     An abstract base class implementing a fully featured User model with
     admin-compliant permissions.
@@ -27,4 +27,4 @@ class AbstractUser(DjangoAdmin, AbstractBaseUser, PermissionsMixin, WithUsername
     class Meta:
         abstract = True
 
-    # username = property(AbstractBaseUser.get_username)
+    username = property(AbstractBaseUser.get_username)
